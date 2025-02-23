@@ -1,6 +1,8 @@
 services:
   server:
-    image: ${COOLIFY_IMAGE_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - ${PORT:-8000}:8000
     restart: unless-stopped
