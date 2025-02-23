@@ -8,10 +8,13 @@ WORKDIR /app/
 
 COPY . .
 
-RUN chmod +x /app/entrypoint.sh
+# Convert line endings and ensure script is executable
+RUN sed -i 's/\r$//' /app/entrypoint.sh && \
+    chmod +x /app/entrypoint.sh
 
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
-CMD ["python3", "manage.py", "runserver"]
+# Change the default CMD to use the entrypoint script
+CMD ["/app/entrypoint.sh"]
